@@ -1,1 +1,1 @@
-include ':library', ':bluetoothcommunicator-sample'
+include ':library', ':sample'
