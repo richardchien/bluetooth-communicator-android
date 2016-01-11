@@ -8,5 +8,6 @@ import android.bluetooth.BluetoothDevice;
  */
 public interface OnListenListener {
     void onAccept(BluetoothDevice device);
+
     void onFail();
 }

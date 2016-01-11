@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 
-import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnConnectionResultListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnNewDeviceFoundListener;
+import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 
 import java.util.Set;
 import java.util.UUID;

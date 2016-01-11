@@ -5,9 +5,9 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 
-import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnListenListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
+import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 
 import java.util.UUID;
 
