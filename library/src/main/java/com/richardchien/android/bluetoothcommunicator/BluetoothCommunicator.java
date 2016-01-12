@@ -166,16 +166,17 @@ public abstract class BluetoothCommunicator {
      */
     public void sendLine(String line, final BluetoothDevice device, final OnSendListener listener) {
         CommunicateThread thread = mConnections.get(device);
-        if (listener != null) {
-            if (thread == null) {
+
+        if (thread == null) {
+            if (listener != null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         listener.onSendFailed(device);
                     }
                 });
-                return;
             }
+            return;
         }
 
         thread.writeLine(line);
