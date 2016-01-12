@@ -1,7 +1,7 @@
 Bluetooth Communicator for Android
 =========
 
-Bluetooth Communicator is a framework that help you to establish Bluetooth connections between 2 devices (client and server). It hasn't been completely tested yet, if anything strange occurs to your app, please send me an issue.
+Bluetooth Communicator is a framework that help you to establish Bluetooth connections between devices (several clients and one server). It hasn't been completely tested yet, and if anything strange occurs to your app, please send me an issue.
 
 ###Usage
 
