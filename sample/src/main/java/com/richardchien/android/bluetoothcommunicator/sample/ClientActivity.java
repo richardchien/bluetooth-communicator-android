@@ -89,9 +89,7 @@ public class ClientActivity extends AppCompatActivity {
         final List<BluetoothDevice> deviceList = new ArrayList<>();
         final List<String> list = new ArrayList<>();
         Set<BluetoothDevice> pairedDevices = mClient.getPairedDevices();
-        // If there are paired devices
         if (pairedDevices.size() > 0) {
-            // Loop through paired devices
             for (BluetoothDevice device : pairedDevices) {
                 deviceList.add(device);
                 list.add(device.getName() + ": " + device.getAddress());

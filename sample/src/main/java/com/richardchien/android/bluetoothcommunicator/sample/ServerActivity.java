@@ -94,9 +94,7 @@ public class ServerActivity extends AppCompatActivity {
     private void showConnected() {
         final List<String> list = new ArrayList<>();
         Set<BluetoothDevice> connectedDevices = mServer.getConnectedDevices();
-        // If there are paired devices
         if (connectedDevices.size() > 0) {
-            // Loop through paired devices
             for (BluetoothDevice device : connectedDevices) {
                 list.add(device.getName() + ": " + device.getAddress());
             }
