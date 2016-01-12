@@ -95,7 +95,9 @@ public class CommunicateThread extends Thread {
      * Cancel the thread and notify the communicator
      */
     private void fail() {
+        if (!Thread.currentThread().isInterrupted()) {
+            mCommunicator.loseConnection(mDevice);
+        }
         cancel();
-        mCommunicator.loseConnection(mDevice);
     }
 }
