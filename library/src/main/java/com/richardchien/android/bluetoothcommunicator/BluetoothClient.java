@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 
-import com.richardchien.android.bluetoothcommunicator.listener.OnConnectionResultListener;
+import com.richardchien.android.bluetoothcommunicator.listener.ConnectResultListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnNewDeviceFoundListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
@@ -19,44 +19,46 @@ import java.util.UUID;
 /**
  * BluetoothCommunicator
  * Created by richard on 16/1/11.
+ * <p/>
+ * Class used to communicate through Bluetooth as a client.
  */
 public class BluetoothClient extends BluetoothCommunicator {
     private BroadcastReceiver mDiscoveryBroadcastReceiver;
 
     /**
-     * BluetoothClient constructor without listeners
+     * BluetoothClient constructor without listeners.
      *
-     * @param handler Handler on UI thread
+     * @param handler Handler on UI thread.
      */
     public BluetoothClient(Handler handler) {
         super(handler);
     }
 
     /**
-     * BluetoothClient constructor with listeners
+     * BluetoothClient constructor with listeners.
      *
-     * @param handler                  Handler on UI thread
-     * @param onReceiveListener        Listener for receiving message
-     * @param onLoseConnectionListener Listener for losing connection
+     * @param handler                  Handler on UI thread.
+     * @param onReceiveListener        Listener for receiving message or null.
+     * @param onLoseConnectionListener Listener for losing connection or null.
      */
     public BluetoothClient(Handler handler, OnReceiveListener onReceiveListener, OnLoseConnectionListener onLoseConnectionListener) {
         super(handler, onReceiveListener, onLoseConnectionListener);
     }
 
     /**
-     * Get all paired devices
+     * Get all paired devices.
      *
-     * @return Set of paired devices
+     * @return Set of paired devices.
      */
     public Set<BluetoothDevice> getPairedDevices() {
         return mBluetoothAdapter.getBondedDevices();
     }
 
     /**
-     * Start discovery of new Bluetooth devices
+     * Start discovery of new Bluetooth devices.
      *
-     * @param context  Context
-     * @param listener Listener
+     * @param context  Context.
+     * @param listener Listener.
      */
     public void startDiscovery(Context context, final OnNewDeviceFoundListener listener) {
         mBluetoothAdapter.startDiscovery();
@@ -74,9 +76,9 @@ public class BluetoothClient extends BluetoothCommunicator {
     }
 
     /**
-     * Cancel discovery of new Bluetooth devices
+     * Cancel discovery of new Bluetooth devices.
      *
-     * @param context Context
+     * @param context Context.
      */
     public void cancelDiscovery(Context context) {
         mBluetoothAdapter.cancelDiscovery();
@@ -88,20 +90,20 @@ public class BluetoothClient extends BluetoothCommunicator {
     }
 
     /**
-     * Connect to device
+     * Connect to device.
      *
-     * @param device   Device to connect
-     * @param uuid     The app's UUID string, should be the same as the server side
-     * @param listener Listener
+     * @param device   Device to connect.
+     * @param uuid     The app's UUID string, should be the same as the server side.
+     * @param listener Listener.
      */
-    public void connectToDevice(BluetoothDevice device, UUID uuid, OnConnectionResultListener listener) {
+    public void connectToDevice(BluetoothDevice device, UUID uuid, ConnectResultListener listener) {
         if (mConnections.containsKey(device)) {
-            listener.onConnectionSucceeded(device);
+            listener.onSucceed(device);
             return;
         }
 
         if (mConnections.size() > 0) {
-            listener.onConnectionFailed(device);
+            listener.onFail(device);
             return;
         }
 
@@ -109,14 +111,14 @@ public class BluetoothClient extends BluetoothCommunicator {
     }
 
     /**
-     * Thread to make connection
+     * Thread to make connection.
      */
     private class ConnectThread extends Thread {
         private BluetoothDevice mmDevice;
         private BluetoothSocket mmSocket;
-        private OnConnectionResultListener mmListener;
+        private ConnectResultListener mmListener;
 
-        public ConnectThread(BluetoothDevice device, UUID uuid, OnConnectionResultListener listener) {
+        public ConnectThread(BluetoothDevice device, UUID uuid, ConnectResultListener listener) {
             mmDevice = device;
             mmListener = listener;
 
@@ -125,7 +127,7 @@ public class BluetoothClient extends BluetoothCommunicator {
                 tmp = device.createRfcommSocketToServiceRecord(uuid);
             } catch (Exception e) {
                 cancel();
-                connectionFailed(mmDevice);
+                fail(mmDevice);
             }
             mmSocket = tmp;
         }
@@ -136,15 +138,15 @@ public class BluetoothClient extends BluetoothCommunicator {
             try {
                 mmSocket.connect();
                 startNewCommunicateThread(mmSocket);
-                connectionSucceeded(mmDevice);
+                succeed(mmDevice);
             } catch (Exception e) {
                 cancel();
-                connectionFailed(mmDevice);
+                fail(mmDevice);
             }
         }
 
         /**
-         * Cancel the thread
+         * Cancel the thread.
          */
         public void cancel() {
             try {
@@ -154,32 +156,32 @@ public class BluetoothClient extends BluetoothCommunicator {
         }
 
         /**
-         * Call onConnectionSucceeded method on UI thread
+         * Call onSucceed method on UI thread.
          *
          * @param device Device to connect
          */
-        private void connectionSucceeded(final BluetoothDevice device) {
+        private void succeed(final BluetoothDevice device) {
             if (mmListener != null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mmListener.onConnectionSucceeded(device);
+                        mmListener.onSucceed(device);
                     }
                 });
             }
         }
 
         /**
-         * Call onConnectionFailed method on UI thread
+         * Call onFail method on UI thread.
          *
          * @param device Device to connect
          */
-        private void connectionFailed(final BluetoothDevice device) {
+        private void fail(final BluetoothDevice device) {
             if (mmListener != null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mmListener.onConnectionFailed(device);
+                        mmListener.onFail(device);
                     }
                 });
             }

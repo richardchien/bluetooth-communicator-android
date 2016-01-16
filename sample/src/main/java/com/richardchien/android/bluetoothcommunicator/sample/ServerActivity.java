@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.richardchien.android.bluetoothcommunicator.BluetoothServer;
-import com.richardchien.android.bluetoothcommunicator.listener.OnListenListener;
+import com.richardchien.android.bluetoothcommunicator.listener.ListenStateListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 
@@ -69,6 +69,10 @@ public class ServerActivity extends AppCompatActivity {
                 showConnected();
             }
         });
+
+        if (!mServer.isBluetoothSupported()) {
+            this.finish();
+        }
     }
 
     private void start() {
@@ -76,7 +80,7 @@ public class ServerActivity extends AppCompatActivity {
             mServer.stopListening();
             mBtnStart.setText("Listen");
         } else {
-            mServer.startListening(MainActivity.NAME, MainActivity.MY_UUID, new OnListenListener() {
+            mServer.startListening(MainActivity.NAME, MainActivity.MY_UUID, new ListenStateListener() {
                 @Override
                 public void onAccept(BluetoothDevice device) {
                     Toast.makeText(ServerActivity.this, "Accept connection with " + device.getName(), Toast.LENGTH_SHORT).show();

@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.richardchien.android.bluetoothcommunicator.BluetoothClient;
-import com.richardchien.android.bluetoothcommunicator.listener.OnConnectionResultListener;
+import com.richardchien.android.bluetoothcommunicator.listener.ConnectResultListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 
@@ -80,7 +80,9 @@ public class ClientActivity extends AppCompatActivity {
             }
         });
 
-        if (!mClient.isBluetoothEnabled()) {
+        if (!mClient.isBluetoothSupported()) {
+            this.finish();
+        } else if (!mClient.isBluetoothEnabled()) {
             mClient.startActivityForEnablingBluetooth(this, 1);
         }
     }
@@ -120,15 +122,15 @@ public class ClientActivity extends AppCompatActivity {
         if (mDevice == null) {
             Toast.makeText(this, "Choose device first", Toast.LENGTH_SHORT).show();
         } else if (!mClient.isConnectedToDevice(mDevice)) {
-            mClient.connectToDevice(mDevice, MainActivity.MY_UUID, new OnConnectionResultListener() {
+            mClient.connectToDevice(mDevice, MainActivity.MY_UUID, new ConnectResultListener() {
                 @Override
-                public void onConnectionSucceeded(BluetoothDevice device) {
+                public void onSucceed(BluetoothDevice device) {
                     Toast.makeText(ClientActivity.this, "Connection succeeded", Toast.LENGTH_SHORT).show();
                     mBtnConnect.setText("Disconnect");
                 }
 
                 @Override
-                public void onConnectionFailed(BluetoothDevice device) {
+                public void onFail(BluetoothDevice device) {
                     Toast.makeText(ClientActivity.this, "Connection failed", Toast.LENGTH_SHORT).show();
                 }
             });

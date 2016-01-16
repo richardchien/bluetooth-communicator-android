@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 /**
  * BluetoothCommunicator
  * Created by richard on 16/1/11.
+ * <p/>
+ * Class used to establish the communication between devices.
  */
 public class CommunicateThread extends Thread {
     private BluetoothSocket mSocket;
@@ -20,6 +22,12 @@ public class CommunicateThread extends Thread {
     private InputStream mInStream;
     private OutputStream mOutStream;
 
+    /**
+     * CommunicateThread constructor.
+     *
+     * @param communicator Communicator that starts this thread.
+     * @param socket       Bluetooth socket to be used to communicate.
+     */
     public CommunicateThread(BluetoothCommunicator communicator, BluetoothSocket socket) {
         mCommunicator = communicator;
         mSocket = socket;
@@ -63,9 +71,9 @@ public class CommunicateThread extends Thread {
     }
 
     /**
-     * Write a line to remote device
+     * Write a line to remote device.
      *
-     * @param string Line to write
+     * @param string Line to write.
      */
     public void writeLine(String string) {
         PrintWriter pw = new PrintWriter(mOutStream, true);
@@ -73,7 +81,7 @@ public class CommunicateThread extends Thread {
     }
 
     /**
-     * Cancel the thread
+     * Cancel the thread.
      */
     public void cancel() {
         try {
@@ -92,7 +100,7 @@ public class CommunicateThread extends Thread {
     }
 
     /**
-     * Cancel the thread and notify the communicator
+     * Cancel the thread and notify the communicator.
      */
     private void fail() {
         if (!Thread.currentThread().isInterrupted()) {

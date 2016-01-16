@@ -18,6 +18,8 @@ import java.util.Set;
 /**
  * BluetoothCommunicator
  * Created by richard on 16/1/11.
+ * <p/>
+ * Base class of client and server classes, implements some common communicate methods.
  */
 public abstract class BluetoothCommunicator {
     protected BluetoothAdapter mBluetoothAdapter;
@@ -27,9 +29,9 @@ public abstract class BluetoothCommunicator {
     private OnLoseConnectionListener mOnLoseConnectionListener;
 
     /**
-     * BluetoothCommunicator constructor without listeners
+     * BluetoothCommunicator constructor without listeners.
      *
-     * @param handler Handler on UI thread
+     * @param handler Handler on UI thread.
      */
     public BluetoothCommunicator(Handler handler) {
         mHandler = handler;
@@ -37,11 +39,11 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * BluetoothCommunicator constructor with listeners
+     * BluetoothCommunicator constructor with listeners.
      *
-     * @param handler                  Handler on UI thread
-     * @param onReceiveListener        Listener for receiving message
-     * @param onLoseConnectionListener Listener for losing connection
+     * @param handler                  Handler on UI thread.
+     * @param onReceiveListener        Listener for receiving message or null.
+     * @param onLoseConnectionListener Listener for losing connection or null.
      */
     public BluetoothCommunicator(Handler handler, OnReceiveListener onReceiveListener, OnLoseConnectionListener onLoseConnectionListener) {
         mHandler = handler;
@@ -51,47 +53,47 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Setter of mOnReceiveListener
+     * Setter of mOnReceiveListener.
      *
-     * @param listener OnReceiveListener
+     * @param listener Listener for receiving message.
      */
     public void setOnReceiveListener(OnReceiveListener listener) {
         mOnReceiveListener = listener;
     }
 
     /**
-     * Setter of mOnLoseConnectionListener
+     * Setter of mOnLoseConnectionListener.
      *
-     * @param listener OnLoseConnectionListener
+     * @param listener Listener for losing connection.
      */
     public void setOnLoseConnectionListener(OnLoseConnectionListener listener) {
         mOnLoseConnectionListener = listener;
     }
 
     /**
-     * Check if the device support Bluetooth
+     * Check if the device support Bluetooth.
      *
-     * @return Support or not
+     * @return Support or not.
      */
     public boolean isBluetoothSupported() {
         return mBluetoothAdapter != null;
     }
 
     /**
-     * Check if Bluetooth is enabled
+     * Check if Bluetooth is enabled.
      *
-     * @return Enabled
+     * @return Enabled or not.
      */
     public boolean isBluetoothEnabled() {
         return mBluetoothAdapter.isEnabled();
     }
 
     /**
-     * Start an activity to ask the user to enable Bluetooth
-     * Check the result in onActivityResult method by yourself
+     * Start an activity to ask the user to enable Bluetooth.
+     * You should check the result in onActivityResult method.
      *
-     * @param activity    Context activity
-     * @param requestCode Request code
+     * @param activity    Context activity.
+     * @param requestCode Request code.
      */
     public void startActivityForEnablingBluetooth(Activity activity, int requestCode) {
         Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -99,38 +101,38 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Get set of connected devices
+     * Get set of connected devices.
      *
-     * @return Set of connected devices
+     * @return Set of connected devices.
      */
     public Set<BluetoothDevice> getConnectedDevices() {
         return mConnections.keySet();
     }
 
     /**
-     * Check if remote device is connected
+     * Check if remote device is connected.
      *
-     * @param device Remote device to check
-     * @return Connected or not
+     * @param device Remote device to check.
+     * @return Connected or not.
      */
     public boolean isConnectedToDevice(BluetoothDevice device) {
         return mConnections.containsKey(device);
     }
 
     /**
-     * Send a string line to all devices connected without listener
+     * Send a string line to all devices connected without listener.
      *
-     * @param line Line to send
+     * @param line Line to send.
      */
     public void sendLineToAll(String line) {
         sendLineToAll(line, null);
     }
 
     /**
-     * Send a string line to all devices connected with listener
+     * Send a string line to all devices connected with listener.
      *
-     * @param line     Line to send
-     * @param listener Listener
+     * @param line     Line to send.
+     * @param listener Listener.
      */
     public void sendLineToAll(String line, final OnSendListener listener) {
         for (final BluetoothDevice device : mConnections.keySet()) {
@@ -148,21 +150,21 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Send a string line to specific device without listener
+     * Send a string line to specific device without listener.
      *
-     * @param line   Line to send
-     * @param device Device to send
+     * @param line   Line to send.
+     * @param device Device to send.
      */
     public void sendLine(String line, final BluetoothDevice device) {
         sendLine(line, device, null);
     }
 
     /**
-     * Send a string line to specific device with listener
+     * Send a string line to specific device with listener.
      *
-     * @param line     Line to send
-     * @param device   Device to send
-     * @param listener Listener
+     * @param line     Line to send.
+     * @param device   Device to send.
+     * @param listener Listener.
      */
     public void sendLine(String line, final BluetoothDevice device, final OnSendListener listener) {
         CommunicateThread thread = mConnections.get(device);
@@ -192,11 +194,11 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Call onReceiveLine method on UI thread
-     * Automatically called by CommunicateThread
+     * Call onReceiveLine method on UI thread.
+     * Automatically called by CommunicateThread.
      *
-     * @param line   String line received
-     * @param device Device where string received from
+     * @param line   String line received.
+     * @param device Device where string received from.
      */
     public void receiveLine(final String line, final BluetoothDevice device) {
         if (mOnReceiveListener != null) {
@@ -210,9 +212,9 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Disconnect to device
+     * Disconnect to device.
      *
-     * @param device Device to disconnect
+     * @param device Device to disconnect.
      */
     public void disconnectToDevice(BluetoothDevice device) {
         if (mConnections.containsKey(device)) {
@@ -222,10 +224,10 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Call onLoseConnection method on UI thread
-     * Automatically called by CommunicateThread
+     * Call onLoseConnection method on UI thread.
+     * Automatically called by CommunicateThread.
      *
-     * @param device Device which lose connection to
+     * @param device Device which lose connection to.
      */
     public void loseConnection(final BluetoothDevice device) {
         mConnections.remove(device);
@@ -241,9 +243,9 @@ public abstract class BluetoothCommunicator {
     }
 
     /**
-     * Start a new communicate thread
+     * Start a new communicate thread.
      *
-     * @param socket Socket to communicate through
+     * @param socket Socket to communicate through.
      */
     protected void startNewCommunicateThread(BluetoothSocket socket) {
         CommunicateThread thread = new CommunicateThread(this, socket);
