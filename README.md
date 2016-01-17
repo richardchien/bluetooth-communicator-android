@@ -32,7 +32,7 @@ if (!mServer.isBluetoothSupported()) {
     mServer.startActivityForEnablingBluetooth(this, 1);
 } else {
     // NAME: Name of your service. It's OK to be app name
-    // MY_UUID: A unique id used on both client side and server side, see "http://developer.android.com/intl/zh-cn/guide/topics/connectivity/bluetooth.html#ConnectingAsAServer"
+    // MY_UUID: A unique id used on both client side and server side. See "http://developer.android.com/intl/zh-cn/guide/topics/connectivity/bluetooth.html#ConnectingAsAServer"
     mServer.startListening(NAME, MY_UUID, new ListenStateListener() {
         @Override
         public void onAccept(BluetoothDevice device) {
@@ -82,7 +82,8 @@ mClient.cancelDiscovery(this);
 
 // Choose a device (a server) and connect to it
 mDevice = //...
-mClient.connectToDevice(mDevice, MainActivity.MY_UUID, new ConnectResultListener() {
+// MY_UUID: A unique id used on both client side and server side. See "http://developer.android.com/intl/zh-cn/guide/topics/connectivity/bluetooth.html#ConnectingAsAServer"
+mClient.connectToDevice(mDevice, MY_UUID, new ConnectResultListener() {
     @Override
     public void onSucceed(BluetoothDevice device) {
         // Do something after establishing connection with a specific device
