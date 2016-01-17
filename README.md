@@ -113,8 +113,8 @@ mCommunicator.sendLine("Hello, Bluetooth!", aDevice);
 // Send a string line to all devices connected
 mCommunicator.sendLineToAll("Hello, Bluetooth!");
 
-// Disconnect to a specific device
-mCommunicator.disconnectToDevice(someDevice);
+// Disconnect to a device
+mCommunicator.disconnectToDevice(aDevice);
 ```
 
 Please refer to the source code for more information.
