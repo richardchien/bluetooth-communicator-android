@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.richardchien.android.bluetoothcommunicator.BluetoothClient;
-import com.richardchien.android.bluetoothcommunicator.listener.ConnectResultListener;
+import com.richardchien.android.bluetoothcommunicator.listener.ConnectListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
 
@@ -122,7 +122,7 @@ public class ClientActivity extends AppCompatActivity {
         if (mDevice == null) {
             Toast.makeText(this, "Choose device first", Toast.LENGTH_SHORT).show();
         } else if (!mClient.isConnectedToDevice(mDevice)) {
-            mClient.connectToDevice(mDevice, MainActivity.MY_UUID, new ConnectResultListener() {
+            mClient.connectToDevice(mDevice, MainActivity.MY_UUID, new ConnectListener() {
                 @Override
                 public void onSucceed(BluetoothDevice device) {
                     Toast.makeText(ClientActivity.this, "Connection succeeded", Toast.LENGTH_SHORT).show();

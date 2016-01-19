@@ -83,7 +83,7 @@ mClient.cancelDiscovery(this);
 // Choose a device (a server) and connect to it
 mDevice = //...
 // MY_UUID: A unique id used on both client side and server side. See "http://developer.android.com/intl/zh-cn/guide/topics/connectivity/bluetooth.html#ConnectingAsAServer"
-mClient.connectToDevice(mDevice, MY_UUID, new ConnectResultListener() {
+mClient.connectToDevice(mDevice, MY_UUID, new ConnectListener() {
     @Override
     public void onSucceed(BluetoothDevice device) {
         // Do something after establishing connection with a specific device

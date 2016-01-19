@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 
-import com.richardchien.android.bluetoothcommunicator.listener.ConnectResultListener;
+import com.richardchien.android.bluetoothcommunicator.listener.ConnectListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnNewDeviceFoundListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
@@ -96,7 +96,7 @@ public class BluetoothClient extends BluetoothCommunicator {
      * @param uuid     The app's UUID string, should be the same as the server side.
      * @param listener Listener.
      */
-    public void connectToDevice(BluetoothDevice device, UUID uuid, ConnectResultListener listener) {
+    public void connectToDevice(BluetoothDevice device, UUID uuid, ConnectListener listener) {
         if (mConnections.containsKey(device)) {
             listener.onSucceed(device);
             return;
@@ -116,9 +116,9 @@ public class BluetoothClient extends BluetoothCommunicator {
     private class ConnectThread extends Thread {
         private BluetoothDevice mmDevice;
         private BluetoothSocket mmSocket;
-        private ConnectResultListener mmListener;
+        private ConnectListener mmListener;
 
-        public ConnectThread(BluetoothDevice device, UUID uuid, ConnectResultListener listener) {
+        public ConnectThread(BluetoothDevice device, UUID uuid, ConnectListener listener) {
             mmDevice = device;
             mmListener = listener;
 

@@ -6,8 +6,8 @@ import android.bluetooth.BluetoothDevice;
  * BluetoothCommunicator
  * Created by richard on 16/1/11.
  */
-public interface OnSendListener {
-    void onSendSucceeded(BluetoothDevice device);
+public interface ConnectListener {
+    void onSucceed(BluetoothDevice device);
 
-    void onSendFailed(BluetoothDevice device);
+    void onFail(BluetoothDevice device);
 }
