@@ -9,7 +9,7 @@ import android.os.Handler;
 
 import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
 import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
-import com.richardchien.android.bluetoothcommunicator.listener.OnSendListener;
+import com.richardchien.android.bluetoothcommunicator.listener.SendListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -134,7 +134,7 @@ public abstract class BluetoothCommunicator {
      * @param line     Line to send.
      * @param listener Listener.
      */
-    public void sendLineToAll(String line, final OnSendListener listener) {
+    public void sendLineToAll(String line, final SendListener listener) {
         for (final BluetoothDevice device : mConnections.keySet()) {
             mConnections.get(device).writeLine(line);
 
@@ -142,7 +142,7 @@ public abstract class BluetoothCommunicator {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        listener.onSendSucceeded(device);
+                        listener.onSucceed(device);
                     }
                 });
             }
@@ -166,7 +166,7 @@ public abstract class BluetoothCommunicator {
      * @param device   Device to send.
      * @param listener Listener.
      */
-    public void sendLine(String line, final BluetoothDevice device, final OnSendListener listener) {
+    public void sendLine(String line, final BluetoothDevice device, final SendListener listener) {
         CommunicateThread thread = mConnections.get(device);
 
         if (thread == null) {
@@ -174,7 +174,7 @@ public abstract class BluetoothCommunicator {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        listener.onSendFailed(device);
+                        listener.onFail(device);
                     }
                 });
             }
@@ -187,7 +187,7 @@ public abstract class BluetoothCommunicator {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    listener.onSendSucceeded(device);
+                    listener.onSucceed(device);
                 }
             });
         }
