@@ -3,9 +3,9 @@ Bluetooth Communicator for Android
 
 Bluetooth Communicator is a framework that helps you to establish Bluetooth connections between devices (several clients and one server). It hasn't been completely tested yet, and if anything strange occurs to your app, please send me an issue.
 
-###Usage
+### Usage
 
-####As a server
+#### As a server
 
 ```java
 // All two objects you need
@@ -21,7 +21,7 @@ mServer = new BluetoothServer(mHandler, new OnReceiveListener() {
 }, new OnLoseConnectionListener() {
     @Override
     public void onLoseConnection(BluetoothDevice device) {
-        // Do something after losing the connection with specific devcice
+        // Do something after losing the connection with specific device
     }
 });
 
@@ -47,7 +47,7 @@ if (!mServer.isBluetoothSupported()) {
 }
 ```
 
-####As a client
+#### As a client
 
 ```java
 // All three objects you need
@@ -77,7 +77,7 @@ mClient.startDiscovery(this, new OnNewDeviceFoundListener() {
         // Do something to handle with newly found device
     }
 });
-// Cancel discovery
+// Cancel discovery (MUST be called if startDiscovery was called, because it unregisters a broadcast receiver inside)
 mClient.cancelDiscovery(this);
 
 // Choose a device (a server) and connect to it
@@ -96,7 +96,7 @@ mClient.connectToDevice(mDevice, MY_UUID, new ConnectListener() {
 });
 ```
 
-####Common things
+#### Common things
 
 ```java
 // mCommunicator can be either a BluetoothClient or a BluetoothServer
@@ -119,11 +119,11 @@ mCommunicator.disconnectToDevice(aDevice);
 
 Please refer to the source code for more information.
 
-###Reference
+### Reference
 
 [Bluetooth | Android Developers](http://developer.android.com/intl/zh-cn/guide/topics/connectivity/bluetooth.html)
 
-###License
+### License
 
 >The MIT License (MIT)
 >
