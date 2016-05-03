@@ -138,7 +138,7 @@ public abstract class BluetoothCommunicator {
         for (final BluetoothDevice device : mConnections.keySet()) {
             mConnections.get(device).writeLine(line);
 
-            if (mOnLoseConnectionListener != null) {
+            if (listener != null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
