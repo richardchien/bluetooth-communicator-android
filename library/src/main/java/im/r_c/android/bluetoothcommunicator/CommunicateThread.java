@@ -1,4 +1,4 @@
-package com.richardchien.android.bluetoothcommunicator;
+package im.r_c.android.bluetoothcommunicator;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;

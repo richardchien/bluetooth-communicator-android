@@ -1,4 +1,4 @@
-package com.richardchien.android.bluetoothcommunicator.listener;
+package im.r_c.android.bluetoothcommunicator.listener;
 
 import android.bluetooth.BluetoothDevice;
 

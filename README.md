@@ -1,8 +1,24 @@
 # Bluetooth Communicator for Android
 
+[![Release](https://jitpack.io/v/richardchien/bluetooth-communicator-android.svg)](https://jitpack.io/#richardchien/bluetooth-communicator-android)
+
 Bluetooth Communicator is a framework that helps you to establish Bluetooth connections between devices (several clients and one server). It hasn't been completely tested yet, and if anything strange occurs to your app, please send me an issue.
 
 ## Usage
+
+Add the following to your module's `build.gradle`:
+
+```groovy
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+    compile 'com.github.richardchien:bluetooth-communicator-android:v1.0.0'
+}
+```
 
 ### As a server
 

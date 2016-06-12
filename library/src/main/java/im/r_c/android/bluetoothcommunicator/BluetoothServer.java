@@ -1,15 +1,15 @@
-package com.richardchien.android.bluetoothcommunicator;
+package im.r_c.android.bluetoothcommunicator;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 
-import com.richardchien.android.bluetoothcommunicator.listener.ListenStateListener;
-import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
-import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
-
 import java.util.UUID;
+
+import im.r_c.android.bluetoothcommunicator.listener.ListenStateListener;
+import im.r_c.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
+import im.r_c.android.bluetoothcommunicator.listener.OnReceiveListener;
 
 /**
  * BluetoothCommunicator

@@ -1,4 +1,4 @@
-package com.richardchien.android.bluetoothcommunicator.sample;
+package im.r_c.android.bluetoothcommunicator.sample;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
@@ -11,17 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.richardchien.android.bluetoothcommunicator.BluetoothClient;
-import com.richardchien.android.bluetoothcommunicator.listener.ConnectListener;
-import com.richardchien.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
-import com.richardchien.android.bluetoothcommunicator.listener.OnReceiveListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import im.r_c.android.bluetoothcommunicator.BluetoothClient;
+import im.r_c.android.bluetoothcommunicator.listener.ConnectListener;
+import im.r_c.android.bluetoothcommunicator.listener.OnLoseConnectionListener;
+import im.r_c.android.bluetoothcommunicator.listener.OnReceiveListener;
 
 public class ClientActivity extends AppCompatActivity {
     @Bind(R.id.btn_choose_device)

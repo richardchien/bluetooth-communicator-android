@@ -1,9 +1,10 @@
-package com.richardchien.android.bluetoothcommunicator.sample;
+package im.r_c.android.bluetoothcommunicator.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 
 import java.util.UUID;
 
