@@ -1,5 +1,6 @@
 # Bluetooth Communicator for Android
 
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 [![Release](https://jitpack.io/v/richardchien/bluetooth-communicator-android.svg)](https://jitpack.io/#richardchien/bluetooth-communicator-android)
 
 Bluetooth Communicator is a framework that helps you to establish Bluetooth connections between devices (several clients and one server). It hasn't been completely tested yet, and if anything strange occurs to your app, please send me an issue.
